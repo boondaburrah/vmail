@@ -1,0 +1,19 @@
+{
+  "name": "vmail",
+  "version": "0.1.0",
+  "description": "fake email",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boondaburrah/vmail.git"
+  },
+  "author": "Luke Berry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/boondaburrah/vmail/issues"
+  },
+  "homepage": "https://github.com/boondaburrah/vmail#readme"
+}
