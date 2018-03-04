@@ -4,7 +4,7 @@
   "description": "fake email",
   "main": "index.js",
   "scripts": {
-    "run": "budo src/index.ts:jeemail.js --live -- -p tsify",
+    "run": "budo src/index.ts:jeemail.js --live --dir www -- -p tsify",
     "make": "browserify src/index.ts -p tsify -o www/jeemail.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -28,6 +28,8 @@
     "typescript": "^2.7.2"
   },
   "devDependencies": {
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
     "browserify": "^16.1.0",
     "budo": "^11.1.7",
     "tsify": "^3.0.4",
