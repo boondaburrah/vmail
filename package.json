@@ -4,6 +4,8 @@
   "description": "fake email",
   "main": "index.js",
   "scripts": {
+	"run": "budo src/index.ts:jeemail.js --live -- -p tsify",
+	"make": "browserify src/index.ts -p tsify -o www/jeemail.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +17,18 @@
   "bugs": {
     "url": "https://github.com/boondaburrah/vmail/issues"
   },
-  "homepage": "https://github.com/boondaburrah/vmail#readme"
+  "homepage": "https://github.com/boondaburrah/vmail#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dexie": "^2.0.2",
+    "typescript": "^2.7.2",
+    "vue": "^2.5.13",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^16.1.0",
+    "budo": "^11.1.7",
+    "tsify": "^3.0.4",
+    "tslint": "^5.9.1"
+  }
 }
