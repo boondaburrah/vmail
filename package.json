@@ -4,8 +4,8 @@
   "description": "fake email",
   "main": "index.js",
   "scripts": {
-	"run": "budo src/index.ts:jeemail.js --live -- -p tsify",
-	"make": "browserify src/index.ts -p tsify -o www/jeemail.js",
+    "run": "budo src/index.ts:jeemail.js --live -- -p tsify",
+    "make": "browserify src/index.ts -p tsify -o www/jeemail.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,9 +21,11 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dexie": "^2.0.2",
-    "typescript": "^2.7.2",
-    "vue": "^2.5.13",
-    "vuex": "^3.0.1"
+    "mobx": "^3.6.1",
+    "mobx-react": "^4.4.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "typescript": "^2.7.2"
   },
   "devDependencies": {
     "browserify": "^16.1.0",
