@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/boondaburrah/vmail#readme",
   "dependencies": {
+    "antd": "^3.2.3",
     "axios": "^0.18.0",
     "dexie": "^2.0.2",
     "mobx": "^3.6.1",
