@@ -3,6 +3,7 @@
   "rules": {
     "object-literal-sort-keys": false,
     "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
-    "whitespace": false
+    "whitespace": false,
+    "ordered-imports": false
   }
 }
