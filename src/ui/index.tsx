@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Layout, Menu, Input } from "antd";
 import Mailbox from "./mailbox";
+import MailItem from "./mailitem";
 import { sampleMail } from "./mailbox";
 
 export default class MainWindow extends React.Component {
@@ -27,8 +28,10 @@ export default class MainWindow extends React.Component {
                 </Menu>
             </Layout.Sider>
             <Layout.Content>
-                <Mailbox currentPage={1} mailboxName="Inbox" mailItems={sampleMail}/>
+                <MailItem/>
             </Layout.Content>
         </Layout>;
     }
 }
+
+// <Mailbox currentPage={1} mailboxName="Inbox" mailItems={sampleMail}/>
