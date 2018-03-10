@@ -14,7 +14,7 @@ export default class JeeCore{
     private jeedb: MailItem[];
 
     constructor(){
-        this.jeedb = [{
+        const errorData = [{
             id: 0,
             subject: "No Email Data",
             body: "AJAX hasn't come back with the email data.",
@@ -22,17 +22,18 @@ export default class JeeCore{
             to: "you@dear.reader",
             date: 0,
             mailbox: "inbox"
-        }];
-        A.get("/emails.json").then(this.initDataFromJson);
+        }] as MailItem[];
+        this.jeedb = errorData;
+
+        A.get("/emails.json").then((response) => {
+            console.log("AJAX FIRED! ".concat(response.status.toFixed(0)));
+            this.jeedb = (response.status == 200) ? response.data : errorData;
+            console.log(this.jeedb);
+        });
+
+        // for debugging
+        (window as any).core = this;
     }
 
-    private initDataFromJson(response: AxiosResponse){
-        if(response.status === 200){
-            console.log("DATA GET");
-            this.jeedb = response.data;
-        } else {
-            console.log("DATA NOT GET: ".concat(response.status.toFixed(0)).concat(response.statusText));
-            debugger;
-        }
-    }
+
 }
