@@ -5,6 +5,7 @@
     "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
     "whitespace": false,
     "ordered-imports": false,
-    "no-trailing-whitespace": false
+    "no-trailing-whitespace": false,
+    "no-console": false
   }
 }
