@@ -1,16 +1,27 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Layout, Menu, Input } from "antd";
 import Mailbox from "./mailbox";
 import MailItem from "./mailitem";
 import { sampleMail } from "./mailbox";
+import {StateShape} from "../state";
 
 export default class MainWindow extends React.Component {
+    public static mapStateToProps(state:StateShape){
+
+    }
+
     public render(){
         return <Layout>
             <Layout.Sider>
                 <div className="logo">logo</div>
                 <Input.Search />
-                <Menu theme="dark" mode="inline" inlineCollapsed={false}>
+                <Menu theme="dark" mode="inline" inlineCollapsed={false}
+                      openKeys={["mailboxes"]}
+                      onClick={(e) => {
+
+                          console.log(e);
+                      }}>
                     <Menu.SubMenu key="mailboxes" title="Mailboxes">
                     <Menu.Item key="inbox">
                         Inbox
