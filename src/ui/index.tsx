@@ -1,28 +1,31 @@
 import * as React from "react";
+import { Store } from "repatch";
 import { connect } from "react-redux";
 import { Layout, Menu, Input } from "antd";
 import Mailbox from "./mailbox";
 import MailItem from "./mailitem";
 import { sampleMail } from "./mailbox";
 import {StateShape} from "../state";
+import JeeCore from "../core";
 
-export default class MainWindow extends React.Component {
-    public static mapStateToProps(state:StateShape){
+interface MainWindowProps {
+    store: Store<StateShape>;
+    currentMailbox: "inbox" | "outbox" | "drafts" | "important" | "starred" | "trash";
+    dispatch: any;
+}
 
-    }
-
-    public render(){
-        return <Layout>
-            <Layout.Sider>
-                <div className="logo">logo</div>
-                <Input.Search />
-                <Menu theme="dark" mode="inline" inlineCollapsed={false}
-                      openKeys={["mailboxes"]}
-                      onClick={(e) => {
-
-                          console.log(e);
-                      }}>
-                    <Menu.SubMenu key="mailboxes" title="Mailboxes">
+const render: React.SFC<MainWindowProps>= (props: MainWindowProps) => {
+    return <Layout>
+        <Layout.Sider>
+            <div className="logo">logo</div>
+            <Input.Search />
+            <Menu theme="dark" mode="inline" inlineCollapsed={false}
+                  openKeys={["mailboxes"]} selectedKeys={[props.currentMailbox]}
+                  onClick={(e) => {
+                      console.log(e);
+                      props.dispatch((state: StateShape) => ({...state, currentMailbox: e.key}));
+                  }}>
+                <Menu.SubMenu key="mailboxes" title="Mailboxes">
                     <Menu.Item key="inbox">
                         Inbox
                     </Menu.Item>
@@ -35,14 +38,20 @@ export default class MainWindow extends React.Component {
                     <Menu.Item key="draftsbox">
                         Drafts
                     </Menu.Item>
-                    </Menu.SubMenu>
-                </Menu>
-            </Layout.Sider>
-            <Layout.Content>
-                <MailItem/>
-            </Layout.Content>
-        </Layout>;
-    }
+                </Menu.SubMenu>
+            </Menu>
+        </Layout.Sider>
+        <Layout.Content>
+            <MailItem/>
+        </Layout.Content>
+    </Layout>;
+};
+
+function mainWindowState(state: StateShape){
+    return {currentMailbox: state.currentMailbox};
 }
 
+export default connect(mainWindowState)(render);
+
 // <Mailbox currentPage={1} mailboxName="Inbox" mailItems={sampleMail}/>
+
