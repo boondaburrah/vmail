@@ -37,6 +37,12 @@ export default class JeeCore{
     }
 
     public getMailboxPage(mailboxName: string, page: number){
-        return R.filter((i: MailItem) => (i.mailbox === mailboxName), this.jeedb).slice((page * 10), (page * 10) + 1);
+        return R.filter((i: MailItem) => (i.mailbox === mailboxName), this.jeedb)
+            //.slice((page * 10), (page * 10) + 1)
+            .map((i) => ({
+                ...i,
+                key: "mailboxItemNumber".concat(i.id.toFixed(0)),
+                address: (mailboxName === "outbox") ? i.to : i.from
+            }));
     }
 }

@@ -8,7 +8,7 @@ import Core from "./core";
 const core = new Core();
 
 rdom.render(React.createElement(Provider, {store: State as any},
-    React.createElement(MainWindow, {currentMailbox: "inbox"} as any)),
+    React.createElement(MainWindow, {currentMailbox: "inbox", core: core} as any)),
     document.getElementById("app"));
 // rdom.render(React.createElement(MainWindow), document.getElementById("app"));
 (window as any).store = State;

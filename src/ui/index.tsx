@@ -12,6 +12,7 @@ interface MainWindowProps {
     store: Store<StateShape>;
     currentMailbox: "inbox" | "outbox" | "drafts" | "important" | "starred" | "trash";
     dispatch: any;
+    core: JeeCore;
 }
 
 const render: React.SFC<MainWindowProps>= (props: MainWindowProps) => {
@@ -42,7 +43,7 @@ const render: React.SFC<MainWindowProps>= (props: MainWindowProps) => {
             </Menu>
         </Layout.Sider>
         <Layout.Content>
-            <MailItem/>
+            <Mailbox currentPage={1} mailboxName={props.currentMailbox} mailItems={props.core.getMailboxPage(props.currentMailbox, 1)}/>
         </Layout.Content>
     </Layout>;
 };
