@@ -30,13 +30,13 @@ const render: React.SFC<MainWindowProps>= (props: MainWindowProps) => {
                     <Menu.Item key="inbox">
                         Inbox
                     </Menu.Item>
-                    <Menu.Item key="starbox">
+                    <Menu.Item key="starred">
                         Starred
                     </Menu.Item>
-                    <Menu.Item key="sentbox">
+                    <Menu.Item key="outbox">
                         Sent Mail
                     </Menu.Item>
-                    <Menu.Item key="draftsbox">
+                    <Menu.Item key="drafts">
                         Drafts
                     </Menu.Item>
                 </Menu.SubMenu>
