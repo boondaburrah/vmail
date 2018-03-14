@@ -6,6 +6,7 @@ export interface StateShape {
     currentMailbox: "inbox" | "outbox" | "starred" | "important" | "drafts" | "trash";
     checkedItems?: string[];
     ajaxArrived: boolean;
+    currentMail: string;
 }
 
 export default new S({
