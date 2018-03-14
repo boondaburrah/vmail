@@ -1,5 +1,6 @@
 import A, {AxiosResponse} from "axios";
 import * as R from "ramda";
+import {isBoolean} from "util";
 
 export interface MailItem {
     key: string;
@@ -16,7 +17,7 @@ export interface MailItem {
 export default class JeeCore{
     private jeedb: MailItem[];
 
-    constructor(){
+    constructor(ajaxCallback?: any){
         const errorData = [{
             key: "0",
             subject: "No Email Data",
@@ -24,7 +25,9 @@ export default class JeeCore{
             from: "jee@mail.itself",
             to: "you@dear.reader",
             date: 0,
-            mailbox: "inbox"
+            mailbox: "inbox",
+            starred: false,
+            important: true
         }] as MailItem[];
         this.jeedb = errorData;
 
@@ -32,6 +35,9 @@ export default class JeeCore{
             console.log("AJAX FIRED! ".concat(response.status.toFixed(0)));
             this.jeedb = (response.status == 200) ? response.data : errorData;
             console.log(this.jeedb);
+            if(ajaxCallback){
+                ajaxCallback((response.status === 200));
+            }
         });
 
         // for debugging
@@ -39,7 +45,13 @@ export default class JeeCore{
     }
 
     public getMailboxPage(mailboxName: string, page: number){
-        return R.filter((i: MailItem) => (i.mailbox === mailboxName), this.jeedb)
+        let filterfunc;
+        if(mailboxName === "starred" || mailboxName === "important"){
+            filterfunc = (i: MailItem) => (i[mailboxName] || false);
+        } else {
+            filterfunc = (i: MailItem) => (i.mailbox === mailboxName);
+        }
+        return R.filter(filterfunc, this.jeedb)
             // .slice((page * 10), (page * 10) + 1)
             .map((i) => ({
                 ...i,

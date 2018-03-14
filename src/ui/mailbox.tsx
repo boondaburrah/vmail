@@ -1,6 +1,8 @@
 import * as React from "react";
 import * as R from "ramda";
 import { Table } from "antd";
+import {connect} from "react-redux";
+import {StateShape} from "../state";
 
 type mailItemList = any[];
 
@@ -8,6 +10,9 @@ interface MailboxProperties {
     currentPage: number;
     mailboxName: string;
     mailItems: mailItemList;
+    checkedItems: string[];
+    dispatch: any;
+    loading: boolean;
 }
 
 export const sampleMail: mailItemList = R.map((i) => {
@@ -27,11 +32,34 @@ const mailboxColumns = [
     key: "subject" },
   { title: "Date",
     dataIndex: "date",
-    key: "timestamp" }
+    key: "timestamp" },
+  { title: "Actions",
+    dataIndex: "important",
+    key: "boxactions" }
 ];
 
-export default function Mailbox(props: MailboxProperties){
-    return <Table dataSource={props.mailItems} columns={mailboxColumns}>
+const selectedRowActions = {
+    onChange: (keys: any, _: any) => {
+
+    }
+};
+
+const mailbox: React.SFC<MailboxProperties> = (props: MailboxProperties) => {
+    return <Table rowSelection={{
+        onChange: (keys: any, _: any) => {
+            props.dispatch((state: StateShape) => ({...state, checkedItems: keys as string[]}));
+        },
+        getCheckboxProps: (mailItem) => {
+            return false;
+        }
+    }} dataSource={props.mailItems} columns={mailboxColumns}>
 
     </Table>;
-}
+};
+
+const mailboxState = (state: StateShape) => ({
+    checkedItems: state.checkedItems,
+    loading: state.ajaxArrived
+});
+
+export default connect(mailboxState)(mailbox);

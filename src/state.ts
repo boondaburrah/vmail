@@ -4,11 +4,14 @@ import JeeCore from "./core";
 export interface StateShape {
     currentPane: "mailbox" | "mailitem";
     currentMailbox: "inbox" | "outbox" | "starred" | "important" | "drafts" | "trash";
+    checkedItems?: string[];
+    ajaxArrived: boolean;
 }
 
 export default new S({
     currentPane: "mailbox",
-    currentMailbox: "inbox"
+    currentMailbox: "inbox",
+    ajaxArrived: false
 } as StateShape);
 
 export class CoreConnector{

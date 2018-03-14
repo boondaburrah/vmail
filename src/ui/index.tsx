@@ -13,9 +13,10 @@ interface MainWindowProps {
     currentMailbox: "inbox" | "outbox" | "drafts" | "important" | "starred" | "trash";
     dispatch: any;
     core: JeeCore;
+    ajaxArrived: boolean;
 }
 
-const render: React.SFC<MainWindowProps>= (props: MainWindowProps) => {
+const render: React.SFC<MainWindowProps> = (props: MainWindowProps) => {
     return <Layout>
         <Layout.Sider>
             <div className="logo">logo</div>
@@ -35,23 +36,33 @@ const render: React.SFC<MainWindowProps>= (props: MainWindowProps) => {
                     <Menu.Item key="starred">
                         Starred
                     </Menu.Item>
+                    <Menu.Item key="important">
+                        Important
+                    </Menu.Item>
                     <Menu.Item key="outbox">
                         Sent Mail
                     </Menu.Item>
                     <Menu.Item key="drafts">
                         Drafts
                     </Menu.Item>
+                    <Menu.Item key="trash">
+                        Trash
+                    </Menu.Item>
                 </Menu.SubMenu>
             </Menu>
         </Layout.Sider>
         <Layout.Content>
-            <Mailbox currentPage={1} mailboxName={props.currentMailbox} mailItems={props.core.getMailboxPage(props.currentMailbox, 1)}/>
+            {props.ajaxArrived ? (
+                <Mailbox currentPage={1} mailboxName={props.currentMailbox} mailItems={props.core.getMailboxPage(props.currentMailbox, 1)}/>
+                ) : (
+                <h1>LOADING!</h1>
+            )}
         </Layout.Content>
     </Layout>;
 };
 
 function mainWindowState(state: StateShape){
-    return {currentMailbox: state.currentMailbox};
+    return {currentMailbox: state.currentMailbox, ajaxArrived: state.ajaxArrived};
 }
 
 export default connect(mainWindowState)(render);
