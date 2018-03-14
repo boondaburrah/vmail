@@ -26,7 +26,7 @@ const mailboxColumns = [
     dataIndex: "subject",
     key: "subject" },
   { title: "Date",
-    dataIndex: "timestamp",
+    dataIndex: "date",
     key: "timestamp" }
 ];
 

@@ -19,7 +19,9 @@ const render: React.SFC<MainWindowProps>= (props: MainWindowProps) => {
     return <Layout>
         <Layout.Sider>
             <div className="logo">logo</div>
-            <Input.Search />
+            <Input.Search onSearch={(e) => {
+                console.log(e);
+            }}/>
             <Menu theme="dark" mode="inline" inlineCollapsed={false}
                   openKeys={["mailboxes"]} selectedKeys={[props.currentMailbox]}
                   onClick={(e) => {

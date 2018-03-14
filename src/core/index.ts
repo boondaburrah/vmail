@@ -2,13 +2,15 @@ import A, {AxiosResponse} from "axios";
 import * as R from "ramda";
 
 export interface MailItem {
-    id: number;
+    key: string;
     subject: string;
     body: string;
     from: string;
     to: string;
     date: number;
-    mailbox: "inbox" | "outbox" | "drafts" | "important" | "starred" | "trash";
+    mailbox: "inbox" | "outbox" | "drafts" | "trash";
+    starred?: boolean;
+    important?: boolean;
 }
 
 export default class JeeCore{
@@ -16,7 +18,7 @@ export default class JeeCore{
 
     constructor(){
         const errorData = [{
-            id: 0,
+            key: "0",
             subject: "No Email Data",
             body: "AJAX hasn't come back with the email data.",
             from: "jee@mail.itself",
@@ -38,11 +40,15 @@ export default class JeeCore{
 
     public getMailboxPage(mailboxName: string, page: number){
         return R.filter((i: MailItem) => (i.mailbox === mailboxName), this.jeedb)
-            //.slice((page * 10), (page * 10) + 1)
+            // .slice((page * 10), (page * 10) + 1)
             .map((i) => ({
                 ...i,
-                key: "mailboxItemNumber".concat(i.id.toFixed(0)),
-                address: (mailboxName === "outbox") ? i.to : i.from
+                address: (mailboxName === "outbox") ? i.to : i.from,
+                date: ((d: number) => {
+                    let dateobj = new Date(0);
+                    dateobj.setUTCSeconds(d);
+                    return dateobj.toLocaleDateString();
+                })(i.date)
             }));
     }
 }
