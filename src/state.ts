@@ -1,4 +1,5 @@
 import S from "repatch";
+import JeeCore from "./core";
 
 export interface StateShape {
     currentPane: "mailbox" | "mailitem";
@@ -9,3 +10,11 @@ export default new S({
     currentPane: "mailbox",
     currentMailbox: "inbox"
 } as StateShape);
+
+export class CoreConnector{
+    private coreRef: JeeCore;
+
+    constructor(core: JeeCore){
+        this.coreRef = core;
+    }
+}

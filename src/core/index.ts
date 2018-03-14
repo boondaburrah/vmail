@@ -1,4 +1,5 @@
 import A, {AxiosResponse} from "axios";
+import * as R from "ramda";
 
 export interface MailItem {
     id: number;
@@ -35,5 +36,13 @@ export default class JeeCore{
         (window as any).core = this;
     }
 
-
+    public getMailboxPage(mailboxName: string, page: number){
+        return R.filter((i: MailItem) => (i.mailbox === mailboxName), this.jeedb)
+            //.slice((page * 10), (page * 10) + 1)
+            .map((i) => ({
+                ...i,
+                key: "mailboxItemNumber".concat(i.id.toFixed(0)),
+                address: (mailboxName === "outbox") ? i.to : i.from
+            }));
+    }
 }
